@@ -45,7 +45,12 @@ def decompress_zst_file(input_path, output_name):
         None
     """
     path = Path(input_path)
-    output_path = path.parent / f"{output_name}.dem" #User input with .dem extension as default for output file, can be changed
+    out_path = Path(output_name)
+
+    if not out_path.suffix:
+        out_path = out_path.with_suffix('.dem') # .dem if no extension provided
+    output_path = path.parent / out_path.name
+
     total_size = path.stat().st_size # Input file size for progress
 
     with open(path, 'rb') as compressed, open(output_path, 'wb') as destination:
@@ -66,7 +71,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     input_path = sys.argv[1]
-    output_name = input("Enter new filename (without extension): ").strip()
+    output_name = input("Enter new filename (without extension for .dem, or add a custom extension): ").strip()
 
     if not output_name:
         print("No filename entered. Exiting.")
