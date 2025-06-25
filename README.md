@@ -33,4 +33,5 @@ In order to make an executable .exe file for easier drag & drop support:
 2. Open a terminal in the project's directory.
 3. run `pyinstaller --onefile unpack_zst.py`
 
+The compiled `.exe` will be in the `dist` folder.
 
